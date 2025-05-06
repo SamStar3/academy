@@ -1,0 +1,281 @@
+ 
+-- Database 
+
+ table name =course 
+
+id
+name
+description
+duration
+created_at
+status
+
+
+ table name =course_fee
+
+id
+course_id
+fee
+effective_from
+created_at
+status
+
+
+table name =course_subject
+
+id
+course_id
+subject_id
+create_at
+status
+
+table name =department
+
+id
+name
+status
+created_at
+
+table name =payment
+
+id
+person_course_id
+paid_amount
+payment_mode
+payment_date
+status
+created_at
+received_by
+
+table name =person
+
+id
+name
+register_no
+email
+created_at
+status
+
+
+table name =person_course
+
+id
+person_id
+course_fee_id
+fee_amount
+status
+created_at
+
+table name =person_department
+
+id
+person_id
+department_id
+created_at
+
+table name =person_details
+
+id
+person_id
+last_name
+phone_number
+address
+dob
+doj
+gender
+blood_group
+profile
+
+table name =person_login
+
+id
+person_id
+username
+password
+created_at
+status
+
+
+table name =person_roles
+
+id
+person_id
+role_id
+created_at
+
+
+table name =role
+id
+name
+created_at
+
+
+table name =subject
+
+id
+name
+description
+create_at
+status
+
+
+table name =syllabus
+
+id
+subject_id
+name
+description
+create_at
+status
+
+--   View for payment report  
+  
+  
+   CREATE VIEW person_payment AS
+     SELECT  
+        p.id AS person_id,
+        p.name AS person_name,
+        f.paid_amount,
+        f.payment_mode,
+        f.payment_date,
+        p2.name as received_by
+        f.id AS payment_id,
+    FROM  payment f
+    JOIN  person_course pc ON f.person_course_id = pc.id
+    JOIN  person p ON pc.person_id = p.id
+    left join person p2 on f.received_by = p2.id
+    ORDER BY  f.payment_date DESC 
+  
+
+--   View for subject  
+  
+ CREATE VIEW subject_with_syllabus AS
+        SELECT 
+            subject.id AS subject_id,
+            subject.name AS subject_name,
+            syllabus.id AS syllabus_id,
+            syllabus.status AS syllabus_status,
+            syllabus.description AS syllabus_description,
+            syllabus.created_at AS syllabus_created_at
+        FROM subject
+        LEFT JOIN syllabus ON subject.id = syllabus.subject_id;
+
+
+--   View for trainees 
+
+  CREATE VIEW listtrainee AS
+        SELECT 
+            p.id , 
+            p.name, 
+            pd.phone_number, 
+            p.email
+                FROM person p
+                JOIN person_details pd ON p.id = pd.person_id
+                JOIN person_roles pr ON p.id = pr.person_id
+                JOIN role r ON pr.role_id = r.id
+                WHERE r.name = 'Trainee';
+
+  --   View for filter
+  
+  CREATE VIEW filter AS
+         SELECT 
+                p.id,
+                p.name AS person_name,
+                p.email,
+                pd.phone_number
+            FROM 
+                person p
+            INNER JOIN 
+                person_course pc ON pc.person_id = p.id
+            LEFT JOIN 
+                person_details pd ON pd.person_id = p.id
+            WHERE 
+                1=1;
+
+                CREATE OR REPLACE VIEW filtertrainee AS
+                 SELECT p.id AS person_id, 
+                 p.name AS person_name, 
+                 p.email,
+                  MAX(pd.phone_number) AS phone_number,
+                   MAX(pd.doj) AS doj, 
+                   MAX(pc.course_fee_id) AS course_id 
+                   FROM person p
+                    LEFT JOIN person_details pd ON p.id = pd.person_id 
+                    LEFT JOIN person_course pc ON p.id = pc.person_id 
+                    GROUP BY p.id, p.name, p.email;
+
+--   View for edittrainee   
+
+    CREATE VIEW edittrainee AS
+
+    SELECT p.name,p.id as person_id,
+    p.email, p.register_no, 
+    d.phone_number, d.address, 
+    d.dob, d.doj, d.gender, 
+    d.blood_group, d.profile
+    FROM person p 
+    JOIN person_details d ON p.id = d.person_id 
+    JOIN person_course pc ON p.id = pc.person_id;
+
+
+            
+
+    --   View for viewtrainees   
+
+       CREATE VIEW viewtrainee AS
+    SELECT 
+        p.id AS person_id,
+        p.name AS person_name,
+        p.email,
+        p.register_no,
+        
+        pd.phone_number,
+        pd.address,
+        pd.dob,
+        pd.doj,
+        pd.profile,
+        pd.gender,
+        pd.blood_group,
+        
+        pl.id AS login_id,
+        pl.username,
+        pl.password,
+        
+        pc.id AS person_course_id,
+        pc.fee_amount AS course_amount,
+        
+        cf.id AS course_fee_id,
+        cf.fee AS total_amount,
+        cf.duration,
+        
+        c.id AS course_id,
+        c.name AS course_name,
+        c.description AS course_description,       
+        
+        FROM person p
+        JOIN person_details pd ON p.id = pd.person_id
+        LEFT JOIN person_login pl ON p.id = pl.person_id
+        LEFT JOIN person_course pc ON p.id = pc.person_id
+        LEFT JOIN course_fee cf ON cf.id = pc.course_fee_id
+        LEFT JOIN course c ON c.id = cf.course_id
+
+        --   View for view_syllabus_materials
+
+
+             s.id AS subject_id,
+             sy.id AS syllabus_id, 
+              sy.name AS syllabus_name, 
+              s.name AS subject_name, 
+              sy.description,
+              sm.id AS material_id, 
+              sm.file_name, 
+              sm.description AS material_description, 
+              sm.created_at, 
+              sm.status
+          FROM 
+              syllabus sy
+          JOIN 
+              subject s ON sy.subject_id = s.id
+          LEFT JOIN 
+              study_materials sm ON sm.syllabus_id = sy.id
+             WHERE sy.subject_id = $id";

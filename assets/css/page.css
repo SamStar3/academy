@@ -1,0 +1,25 @@
+/* Change pagination button background and text color */
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+    background-color: #f0f0f0;  /* Light grey */
+    color: #333 !important;     /* Dark text */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 4px 10px;
+    margin: 2px;
+  }
+  
+  /* Hover effect */
+  .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+    background-color: #007bff;  /* Bootstrap primary */
+    color: white !important;
+    border-color: #007bff;
+  }
+  
+  /* Active page */
+  .dataTables_wrapper .dataTables_paginate .paginate_button.current {
+    background-color: #007bff;
+    color: white !important;
+    border-color: #007bff;
+    font-weight: bold;
+  }
+  

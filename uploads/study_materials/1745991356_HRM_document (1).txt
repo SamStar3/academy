@@ -1,0 +1,173 @@
+
+Human Resource Management (HRM) System Documentation
+Project Overview
+The Human Resource Management (HRM) System is a comprehensive solution designed exclusively for Super Admin, HR, Manager and Employee professionals to efficiently manage employee-related information and processes within an organization. This system streamlines HR operations such as managing employee personal and professional data, handling documentation, processing leaves, tracking attendance, and managing payroll. The intuitive interface and robust features ensure accurate data management, improved workflow, and enhanced productivity.
+Modules Overview
+1. Authentication Module
+2. Dashboard
+3. Department
+4. Employee Management Module
+5. Leave Management Module
+6. Attendance Management Module
+7. Payroll Management Module
+Log
+
+
+
+
+
+1. Authentication Module
+Purpose: To provide secure access to the HRM system for Super Admin, HR, Manager and Employee. personnel and employees. 
+Features:
+Login: Secure login functionality for Super Admin, HR, Manager and employees with role-based access control.
+Forgot Password: Password recovery feature using email verification / OTP  to reset forgotten passwords.
+User Roles: Different access levels for HR and employees to ensure data privacy and security.
+2. Dashboard Module (Default menu for HR)
+i) For Super Admin & HR
+Numbers of Employees, Numbers of department, Today present count, No of leave apply, This month payroll amount
+ii) For Manager
+Respective Number of Employees, Today present count (under the manager), No of leave apply(Under the Manager),
+ii) For Employee
+-
+3. Department
+The Department menu should include the department name and in-charge (Manager), with options to add, edit, and delete departments.
+
+4. Employee Management Module (Default menu for employee)
+Purpose: To manage employee details efficiently.
+Features: 
+Import Option Need – Bulk upload [ employee data] 
+Give the sample Excel sheet for the import.
+Personal Information: Add, view, edit, and delete employee personal data
+First Name, Last Name, Mobile Number, Email Address, Date of Birth, Martial Status (optional) , Gender, Nationality, Address, City, State, Zip code, Photo (optional).
+Professional Information: Manage job-related details such as 
+Employee Id (Auto Generate), Username, Password, Office Email, Office Phone (option), Select Department (Dropdown), Select Employee type / Roll (Dropdown: HR, Employee..), Joint Date, No of experience [Fresher, 1 Year, .. 10 Years, above 10 Years], Salary.
+Documentation: Upload, view, and manage employee-related documents like ID proofs (Multiple upload [PAN, Aadharcard, Voter id, Driving license,]), Education certificates (Optional), If experience upload the Experience Certificate, offer letter.
+Bank Details: 
+Bank Name, Branch Name, IFSC Code, Account Number, Account Type.
+Note: HR can edit, delete the details, Employees only can edit their personal Information. HR created a new employee, sent the greeting msg with the username, password to the respective employee mail.
+5. Leave Management Module
+Purpose: To streamline leave application and approval processes.
+Features:
+Leave Status Management: HR can view all leave requests categorized as:
+Pending Leaves: Review and approve/reject leave requests.
+Approved Leaves: Track leaves that have been sanctioned.
+Rejected Leaves: Maintain records of denied leave applications.
+Leave History: View leave history for individual employees.
+For Employees:
+Apply for Leave: Employees can apply for leave with the following form fields:
+Start Date: Select the beginning date of the leave.
+End Date: Select the ending date of the leave.
+Number of Leave Days: Automatically calculated based on the start and end date.
+Reason: Text area to provide a detailed reason for the leave.
+View Leave Status: Employees can view the status of their leave applications:
+Pending: Awaiting HR approval.
+Approved: Leave has been sanctioned by HR.
+Rejected: Leave has been denied by HR.
+Filter Leave Records: Employees can filter their leave records to view total leaves taken, based on date range, status, etc.
+Delete Leave Request: Employees can delete a leave request if it has not yet been approved by HR.
+Cancel Approved Leave: If a leave has been approved, employees can cancel it (e.g., if they decide to come to the office on the planned leave day).
+6. Attendance Management Module
+Purpose: To track and manage employee attendance efficiently.
+Features:
+View Attendance:
+All Attendance: Overview of attendance for all employees.
+Today's Attendance: Quick access to the current day's attendance records.
+Individual Attendance: Filter and view attendance records for specific employees.
+Filter Options: Apply date range filters and employee-specific filters to narrow down attendance data.
+
+For Employees:
+Mark Attendance: Employees can mark their daily attendance by logging in and recording the following details:
+Date: Automatically captured based on the current date.
+Time: Captured at the time of clock-in and clock-out.
+View Attendance: Employees can view their attendance history with options to filter by:
+Date Range: View attendance for specific time periods.
+Today’s Attendance: Quickly check the current day’s attendance status.
+Filter Options: Employees can apply filters to view:
+Total Attendance Days: Count of total present days.
+Late Entries: Records of late arrivals. 
+[ if set any time like 9.30 after 9.30 its to be consider as late entries.]
+Absences: Days marked as absent. [Not entered / register the present or applied the leave it consider as the absences.]
+7. Payroll Management Module
+Purpose: To manage employee payroll efficiently with accurate calculations.
+Features:
+Payroll Entry: Enter monthly payroll details, 
+Employee ID [Dropdown],
+[ Employee Name, Department, Roll ] – Auto fill.
+Date (Date of salary)
+No of present : 26 / 27 [ No of present / Total dates] [Automatically calculate using the attendee]
+Actual Salary: [Get in the ]
+This Month Salary
+View Payroll:
+Individual Employee Payroll: Filter and view payroll details for a specific employee.
+Monthly Payroll Details: View and manage payroll for a specific month.
+Payroll History: Maintain a comprehensive record of past payroll data for auditing and reference.
+For Employee
+He / She can only view the salary details with fielders.
+
+
+1) Replace "KYC Details" with "NIC Details." For all other fields, the client will consult with HR and provide further updates.
+http://stagehrms-com.securecfml4.ezhostingserver.com/views/add_user.cfm
+2) Create separate pages for Designation with options to List, Add, Update, and Delete.
+3) Enhance all modules with a success message and a loader for better user experience.
+When an action (Add, Update, Delete) is performed, a loader should appear, indicating that the process is in progress.
+Upon successful completion, a success message should be displayed (e.g., "Department added successfully!" or "Changes saved successfully!").
+Ensure the loader disappears once the operation is complete.
+Apply this feature consistently across all modules.
+4) Integrate a Departments module into the Employee Details section. When the "Add Module" button is clicked, a modal popup should appear, providing options to List, Add, Update, and Delete departments.
+For reference, here are sample departments commonly found in an oil refinery:
+Operations & Production
+Process Engineering
+Maintenance & Reliability
+Health, Safety & Environment (HSE)
+Quality Control & Laboratory
+Supply Chain & Logistics
+Utilities & Energy Management
+Human Resources & Administration
+Finance & Accounting
+Research & Development (R&D)
+5) We need a Career Level option on the Employee Details page instead of Role. The career levels like Career Level I, Career Level II etc. It should be categorized as follows:
+a. Entry-Level Positions (Freshers & Junior Roles) (Career Level I)
+Trainee Engineer (Operations, Maintenance, Process, HSE, etc.)
+Junior Technician
+Field Operator
+Lab Analyst
+Graduate Engineer Trainee (GET)
+b. Mid-Level Positions (Experienced Professionals & Supervisors) (Career Level II)
+Process Engineer
+Maintenance Engineer
+HSE Officer
+Shift Supervisor
+Instrumentation Engineer
+Quality Control Specialist
+Supply Chain Coordinator
+c. Senior-Level Positions (Management & Technical Experts) (Career Level III)
+Senior Process Engineer
+Operations Manager
+Maintenance Manager
+HSE Manager
+Quality Assurance Manager
+Supply Chain & Logistics Manager
+Finance & Accounts Manager
+HR & Administration Manager
+d. Executive-Level Positions (Leadership & Decision-Making Roles) (Career Level IV)
+Refinery Manager
+General Manager (GM) – Operations/Maintenance
+Head of HSE
+Head of Finance & Administration
+Head of Supply Chain & Procurement
+e. C-Suite & Director-Level Positions (Career Level V)
+Chief Operating Officer (COO)
+Chief Technical Officer (CTO)
+Chief Financial Officer (CFO)
+Director of Operations
+Managing Director (MD)
+Chief Executive Officer (CEO)
+6) On the task list page, when assigning a large number of employees, I am encountering a design issue. The bottom scrollbar is not visible. Please refer to the attached screenshot for details.
+7) We need to add Career Level-based Holidays to the system.
+For example:
+Senior Managers are entitled to 10–15 days of leave per quarter, in addition to casual leaves.
+General Managers or Team Leads receive 12 days of leave per year, allocated as 1 day per month, which can be taken as planned leave, casual leave, or emergency leave.
+
+
+
+
