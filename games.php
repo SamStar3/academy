@@ -1,6 +1,6 @@
 <?php
     session_start();
-    include("include/course.php"); 
+    include("include/games.php"); 
 ?>
 <!doctype html>
 <html lang="en">
@@ -21,34 +21,37 @@
 		<div class="page-wrapper">
             <div class="page-content" id="subject-content">
             <div class="page-title-box">
-                    
-                    <div class="page-title-right">
-                        <h2 class="page-title">Games</h2>
-                    </div>
-                                       
-                </div>
-                    <!-- Add Course Button (Right Aligned) -->
-                <div class="d-flex justify-content-end mb-3">
-                <button type="button" class="btn btn-primary" id="btnAddSubject" data-bs-toggle="modal" data-bs-target="#addSubjectModal">
-                    Add Games
-                    </button>
+    <div class="page-title-right">
+        <h2 class="page-title">Games</h2>
+    </div>
+</div>
 
-                </div>
-                <div class="row">
-                    <?php foreach ($subjects as $subjectId => $subject): ?>
-                        <div class="col-md-6 mb-4">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h5 class="card-title"><?= htmlspecialchars($subject['name']) ?></h5>
-                                    <button type="button" class="btn btn-success text-white mb-2" onclick="window.location.href='syllabus.php?id=<?php echo $subject['id']; ?>';">                                            
-                                    <i class="bx bx-book-open"></i> View
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    <?php endforeach; ?>
+<div class="d-flex justify-content-end mb-3">
+    <button type="button" class="btn btn-primary" id="btnAddSubject" data-bs-toggle="modal" data-bs-target="#addSubjectModal">
+        Add Games
+    </button>
+</div>
+
+<div class="row">
+    <?php if (!empty($games)): ?>
+        <?php foreach ($games as $game): ?>
+            <div class="col-md-6 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title"><?= htmlspecialchars($game['name']) ?></h5>
+                        <a href="view_game.php?id=<?= $game['id'] ?>" class="btn btn-info btn-sm">View</a>
+
+                        <!-- You can add more fields or buttons here -->
+                    </div>
                 </div>
             </div>
+        <?php endforeach; ?>
+    <?php else: ?>
+        <p>No games found.</p>
+    <?php endif; ?>
+</div>
+
+
             <?php include("modal/subject.php");?>
         </div>
         <?php include("include/footer.php");?>

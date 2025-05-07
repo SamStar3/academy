@@ -1,9 +1,4 @@
-<?php
 
-	session_start();
-	
-    include("include/index.php"); 
-?>
 
 
 <!doctype html>
