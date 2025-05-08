@@ -27,7 +27,7 @@
 </div>
 
 <div class="d-flex justify-content-end mb-3">
-    <button type="button" class="btn btn-primary" id="btnAddSubject" data-bs-toggle="modal" data-bs-target="#addSubjectModal">
+    <button type="button" class="btn btn-success" id="btnAddSubject" data-bs-toggle="modal" data-bs-target="#addSubjectModal">
         Add Games
     </button>
 </div>
@@ -35,17 +35,27 @@
 <div class="row">
     <?php if (!empty($games)): ?>
         <?php foreach ($games as $game): ?>
-            <div class="col-md-6 mb-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title"><?= htmlspecialchars($game['name']) ?></h5>
-                        <a href="view_game.php?id=<?= $game['id'] ?>" class="btn btn-info btn-sm">View</a>
-
-                        <!-- You can add more fields or buttons here -->
-                    </div>
-                </div>
+        <div class="game-card"  style="border:1px solid #ccc; padding:15px; margin-bottom:15px; border-radius:10px;">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+                <h3>
+                    <?= htmlspecialchars($game['name']) ?>
+                    <a href="edit_game.php?id=<?= $game['id'] ?>" title="Edit">
+                        <i class="fas fa-edit" style="color:#007bff; margin-left:10px;"></i>
+                    </a>
+                    <a href="delete_game.php?id=<?= $game['id'] ?>" title="Delete" onclick="return confirm('Are you sure to delete?')">
+                        <i class="fas fa-trash-alt" style="color:red; margin-left:5px;"></i>
+                    </a>
+                </h3>
             </div>
-        <?php endforeach; ?>
+
+            <button onclick="toggleDetails(<?= $game['id'] ?>)" class="btn btn-success">View</button>
+
+            <div id="details-<?= $game['id'] ?>" style="display:none; margin-top:10px;">
+                <p><strong>Description:</strong> <?= htmlspecialchars($game['description']) ?></p>
+                <p><strong>Total Amount:</strong> <?= htmlspecialchars($game['total_amount']) ?></p>
+            </div>
+        </div>
+    <?php endforeach; ?>
     <?php else: ?>
         <p>No games found.</p>
     <?php endif; ?>
@@ -56,6 +66,12 @@
         </div>
         <?php include("include/footer.php");?>
         <script src="js_functions/subject.js" type="text/javascript"></script>
+        <script>
+        function toggleDetails(id) {
+            const el = document.getElementById("details-" + id);
+            el.style.display = (el.style.display === "none") ? "block" : "none";
+        }
+        </script>
 
     </div>
     
